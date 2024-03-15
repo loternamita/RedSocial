@@ -1,0 +1,47 @@
+<!-- login.component.html -->
+<div class="dark-background">
+  <div class="bg-white p-8 rounded shadow-md w-96">
+    <h2 class="text-xl font-semibold mb-4">Login</h2>
+    <form class="space-y-4" (submit)="onSubmit()">
+      <div class="flex flex-col">
+        <label for="email" class="text-sm">Email:</label>
+        <input
+          type="email"
+          class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          id="email"
+          required
+          [(ngModel)]="email"
+          name="email"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="password" class="text-sm">Password:</label>
+        <input
+          type="password"
+          class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+          id="password"
+          required
+          [(ngModel)]="password"
+          name="password"
+        />
+      </div>
+      <div class="flex justify-center">
+        <button
+          type="submit"
+          class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+        >
+          Login
+        </button>
+      </div>
+      <div *ngIf="errorMessage" class="text-red-500 mt-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+    <div class="mt-4 text-center">
+      <p class="text-sm">¿No tienes una cuenta?</p>
+      <a routerLink="/registerUser" class="text-blue-500 hover:underline"
+        >Registrarse</a
+      >
+    </div>
+  </div>
+</div>

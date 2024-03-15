@@ -1,0 +1,9 @@
+/* app.component.scss */
+
+.dark-background {
+  min-height: 100vh; /* Ajusta la altura mínima para cubrir toda la pantalla */
+  background-color: #1f2937; /* Gris oscuro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
