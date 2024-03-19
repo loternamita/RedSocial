@@ -15,6 +15,7 @@ import { AuthService } from './core/modules/auth/services/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { MenuSearchComponent } from './core/modules/menu-search/components/menu-search.component';
 import { LoginComponent } from './core/modules/login/components/login.component';
+import { DateFormatPipe } from './core/shared/pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LoginComponent } from './core/modules/login/components/login.component'
     MuroComponent,
     PublicacionComponent,
     MenuSearchComponent,
+    DateFormatPipe
   ],
   imports: [
     BrowserModule,
