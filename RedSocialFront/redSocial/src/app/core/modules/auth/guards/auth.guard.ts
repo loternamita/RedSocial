@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core'
+import { type AuthService } from '../services/auth.service'
+import { type Router } from '@angular/router'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard {
-  constructor(
-    private authService: AuthService,
-    private route: Router
+  constructor (
+    private readonly authService: AuthService,
+    private readonly route: Router
   ) {}
 
-  canActivate(): boolean {
+  canActivate (): boolean {
     if (this.authService.isAuthenticated()) {
-      return true;
+      return true
     } else {
-      this.route.navigate(['/login']);
-      return false;
+      this.route.navigate(['/login'])
+      return false
     }
   }
 }

@@ -1,32 +1,32 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core'
+import { type AuthService } from '../../auth/services/auth.service'
+import { type Router } from '@angular/router'
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  constructor(
-    private authService: AuthService,
-    private router: Router
+  constructor (
+    private readonly authService: AuthService,
+    private readonly router: Router
   ) {}
 
-  inicio() {
+  inicio () {
     this.router.navigate(['/menu/muroPublicaciones'], {
-      skipLocationChange: true,
-    });
+      skipLocationChange: true
+    })
   }
 
-  updateData() {
+  updateData () {
     this.router.navigate(['/menu/app-update-data'], {
-      skipLocationChange: true,
-    });
+      skipLocationChange: true
+    })
   }
 
-  cerrarSesion() {
-    this.authService.removeToken();
-    this.router.navigate(['/login']);
+  cerrarSesion () {
+    this.authService.removeToken()
+    this.router.navigate(['/login'])
   }
 }

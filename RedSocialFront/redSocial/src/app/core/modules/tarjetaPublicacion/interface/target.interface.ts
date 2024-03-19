@@ -1,5 +1,5 @@
 export interface TargetInterface {
-  title: string;
-  content: string;
-  updatedAt: Date;
+  title: string
+  content: string
+  updatedAt: Date
 }

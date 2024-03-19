@@ -1,26 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { PostInterface } from '../../post/interfaces/post.interface';
+import { Injectable } from '@angular/core'
+import { type HttpClient } from '@angular/common/http'
+import { type Observable } from 'rxjs'
+import { type PostInterface } from '../../post/interfaces/post.interface'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MenuSearchService {
-  private baseUrl = 'http://localhost:3000/api';
+  private readonly baseUrl = 'http://localhost:3000/api'
 
-  constructor(private http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
-  searchPosts(
+  searchPosts (
     email: string,
     token: string,
     param: string
   ): Observable<PostInterface[]> {
-    let uri = this.baseUrl + '/posts/searchPosts/';
-    let uriCompleted = uri + email;
+    const uri = this.baseUrl + '/posts/searchPosts/'
+    const uriCompleted = uri + email
     return this.http.get<PostInterface[]>(uriCompleted, {
       headers: { Authorization: token },
-      params: { query: param },
-    });
+      params: { query: param }
+    })
   }
 }

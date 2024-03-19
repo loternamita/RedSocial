@@ -1,32 +1,32 @@
-import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Injectable } from '@angular/core'
+import { type JwtHelperService } from '@auth0/angular-jwt'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-  constructor(private jwtHelperService: JwtHelperService) {}
+  constructor (private readonly jwtHelperService: JwtHelperService) {}
 
-  saveToken(token: string) {
-    window.sessionStorage.setItem('token', token);
+  saveToken (token: string) {
+    window.sessionStorage.setItem('token', token)
   }
 
-  getToken(): string | null {
-    return window.sessionStorage.getItem('token');
+  getToken (): string | null {
+    return window.sessionStorage.getItem('token')
   }
 
-  removeToken() {
-    window.sessionStorage.removeItem('token');
+  removeToken () {
+    window.sessionStorage.removeItem('token')
   }
 
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    return !!token;
+  isAuthenticated (): boolean {
+    const token = this.getToken()
+    return !!token
   }
 
-  decodeToken(token: string): string | null {
-    const tokenDecode = this.jwtHelperService.decodeToken(token);
-    const email = tokenDecode.email;
-    return email;
+  decodeToken (token: string): string | null {
+    const tokenDecode = this.jwtHelperService.decodeToken(token)
+    const email = tokenDecode.email
+    return email
   }
 }
