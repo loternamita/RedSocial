@@ -5,94 +5,93 @@ import {
   Input,
   Output,
   type ElementRef,
-  HostListener
-} from '@angular/core'
-import { type PostInterface } from 'src/app/core/modules/post/interfaces/post.interface'
-import { UserInterface } from 'src/app/core/modules/user/interface/user.interface'
-import { type AuthService } from '../../auth/services/auth.service'
-import { type PostService } from '../../post/services/post.service'
+  HostListener,
+} from '@angular/core';
+import { type PostInterface } from 'src/app/core/modules/post/interfaces/post.interface';
+import { type AuthService } from '../../auth/services/auth.service';
+import { type PostService } from '../../post/services/post.service';
 
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
-  styleUrls: ['./publicacion.component.scss']
+  styleUrls: ['./publicacion.component.scss'],
 })
 export class PublicacionComponent {
   @Input()
-  public posts!: PostInterface
+  public posts!: PostInterface;
 
-  @Output() deleted = new EventEmitter<number>()
-  public mostrarEditar: boolean = false
-  public canEdit: boolean = false
-  public canSave: boolean = false
-  private token: string = ''
-  public responseMessage: string = ''
-  private email: string | null = ''
+  @Output() deleted = new EventEmitter<number>();
+  public mostrarEditar: boolean = false;
+  public canEdit: boolean = false;
+  public canSave: boolean = false;
+  private token: string = '';
+  public responseMessage: string = '';
+  private email: string | null = '';
 
-  constructor (
+  constructor(
     private readonly authService: AuthService,
     private readonly postService: PostService,
     private readonly elementRef: ElementRef
   ) {}
 
-  ngOnInit () {
-    const token = this.authService.getToken()
+  ngOnInit() {
+    const token = this.authService.getToken();
     if (token !== null) {
-      this.token = token
+      this.token = token;
     }
 
     if (this.token) {
-      this.email = this.authService.decodeToken(this.token)
+      this.email = this.authService.decodeToken(this.token);
     }
   }
 
-  toggleEditar () {
-    this.mostrarEditar = !this.mostrarEditar
+  toggleEditar() {
+    this.mostrarEditar = !this.mostrarEditar;
   }
 
-  onDelete () {
-    const title = this.posts.title
-    const email = this.email
+  onDelete() {
+    const title = this.posts.title;
+    const email = this.email;
 
     if (email) {
       this.postService.deletePost(email, title, this.token).subscribe({
         next: response => {
-          this.deleted.emit(this.posts.id)
+          this.deleted.emit(this.posts.id);
         },
         error: err => {
           if (err.status === 401) {
             this.responseMessage =
-              'No tiene permisos para realizar esta accion'
+              'No tiene permisos para realizar esta accion';
           }
-        }
-      })
+        },
+      });
     }
   }
 
-  onEdit (post: PostInterface) {
-    let email: string | null = null
+  onEdit(post: PostInterface) {
+    let email: string | null = null;
 
     if (this.token) {
-      email = this.authService.decodeToken(this.token)
+      email = this.authService.decodeToken(this.token);
     }
 
     if (post.user.email === email) {
-      this.canEdit = true
-      this.canSave = true
-      this.mostrarEditar = false
+      this.canEdit = true;
+      this.canSave = true;
+      this.mostrarEditar = false;
     } else {
-      this.responseMessage = 'No tiene permisos para realizar esta accion'
+      this.responseMessage = 'No tiene permisos para realizar esta accion';
     }
   }
 
-  onSave () {
-    const email = this.posts.user.email
-    const token = this.token
+  onSave() {
+    const email = this.posts.user.email;
+    const token = this.token;
     const postUpdated = {
       title: this.posts.title,
       content: this.posts.content,
-      updatedAt: new Date()
-    }
+      updatedAt: new Date(),
+    };
 
     this.postService.getPosts(this.posts.id ?? 0).subscribe({
       next: (response: PostInterface) => {
@@ -100,34 +99,34 @@ export class PublicacionComponent {
           .updatePost(email ?? '', response.title, postUpdated, token)
           .subscribe({
             error: err => {
-              console.error('Error: ' + err)
+              console.error('Error: ' + err);
 
               if (err.status === 401) {
                 this.responseMessage =
-                  'No tiene permisos para realizar esta accion'
+                  'No tiene permisos para realizar esta accion';
               }
-            }
-          })
+            },
+          });
       },
       error: err => {
-        console.log('Error: ' + JSON.stringify(err))
-      }
-    })
+        console.log('Error: ' + JSON.stringify(err));
+      },
+    });
 
-    this.canSave = false
-    this.canEdit = false
+    this.canSave = false;
+    this.canEdit = false;
   }
 
-  handleClickOutside (event: MouseEvent) {
-    const target = event.target as HTMLElement
-    const dropdown = this.elementRef.nativeElement.querySelector('.dropdown')
+  handleClickOutside(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const dropdown = this.elementRef.nativeElement.querySelector('.dropdown');
     if (!dropdown.contains(target)) {
-      this.mostrarEditar = false
+      this.mostrarEditar = false;
     }
   }
 
   @HostListener('document:click', ['$event'])
-  onDocumentClick (event: MouseEvent) {
-    this.handleClickOutside(event)
+  onDocumentClick(event: MouseEvent) {
+    this.handleClickOutside(event);
   }
 }

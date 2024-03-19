@@ -1,12 +1,12 @@
-import { type UserInterface } from '../../user/interface/user.interface'
+import { type UserInterface } from '../../user/interface/user.interface';
 
 export interface PostInterface {
-  id?: number
-  title: string
-  content: string
-  likes?: number
-  user: UserInterface
-  createdAt?: Date | null
-  updatedAt?: Date | null
-  deletedAt?: Date | null
+  id?: number;
+  title: string;
+  content: string;
+  likes?: number;
+  user: UserInterface;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
+  deletedAt?: Date | null;
 }
