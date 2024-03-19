@@ -17,22 +17,22 @@
       </div>
     </div>
     <div class="publicacion-info">
-      <p class="usuario-nombre">{{ posts.user?.fullname }}</p>
+      <p class="usuario-nombre">{{ posts.user.fullname }}</p>
       <input
         type="text"
         class="mt-1 px-2 py-1 rounded-md btn-title"
-        value="{{ posts.post.title }}"
+        value="{{ posts.title }}"
         id="title"
-        [(ngModel)]="posts.post.title"
+        [(ngModel)]="posts.title"
         [readonly]="!canEdit"
         readonly
       />
       <textarea
         class="mt-1 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-gray-500 txt-content"
         id="content"
-        [(ngModel)]="posts.post.content"
+        [(ngModel)]="posts.content"
         [readonly]="!canEdit"
-        >{{ posts.post.content }}</textarea
+        >{{ posts.content }}</textarea
       >
       <div>
         <input
@@ -46,7 +46,7 @@
           {{ responseMessage }}
         </p>
       </div>
-      <p class="fecha">{{ posts.post.createdAt | date : "dd/MM/yyyy" }}</p>
+      <p class="fecha">{{ posts.createdAt | date : "dd/MM/yyyy" }}</p>
     </div>
     <button class="delete-button" (click)="onDelete()">
       <div class="opciones">

@@ -12,15 +12,10 @@ export class MuroService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(page: number, pageSize: number): Observable<{ posts: { user: UserInterface, post: PostInterface }[], total: number }> {
+  getPosts(page: number, pageSize: number): Observable<{ posts: PostInterface[], total: number }> {
 
     let uri = this.url + "/posts/getPaginatePosts"
 
-    return this.http.get<{ posts: PostInterface[], total: number }>(uri, { params: { page, pageSize } }).pipe(
-      map(response => {
-        const postsWithUsers = response.posts.map(post => ({ user: post.users!, post }));
-        return { posts: postsWithUsers, total: response.total };
-      })
-    );
+    return this.http.get<{ posts: PostInterface[], total: number }>(uri, { params: { page, pageSize } });
   }
 }

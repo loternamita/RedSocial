@@ -27,7 +27,7 @@ export class AuthService {
 
   decodeToken(token: string): string | null {
     const tokenDecode = this.jwtHelperService.decodeToken(token)
-    const email = tokenDecode?.email;
+    const email = tokenDecode.email;
     return email;
   }
 

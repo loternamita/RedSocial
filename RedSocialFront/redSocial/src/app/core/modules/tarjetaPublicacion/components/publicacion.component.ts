@@ -12,7 +12,7 @@ import { PostService } from '../../post/services/post.service';
 })
 export class PublicacionComponent {
   @Input()
-  public posts!: { user?: UserInterface; post: PostInterface; }
+  public posts!: PostInterface;
   @Output() deleted = new EventEmitter<number>();
   public mostrarEditar: boolean = false;
   public canEdit: boolean = false;
@@ -40,14 +40,14 @@ export class PublicacionComponent {
 
   onDelete() {
 
-    let title = this.posts.post.title;
+    let title = this.posts.title;
     let email = this.email;
 
     if (email) {
       this.postService.deletePost(email, title, this.token)
         .subscribe({
           next: response => {
-            this.deleted.emit(this.posts.post.id);
+            this.deleted.emit(this.posts.id);
           },
           error: err => {
             if (err.status === 401) {
@@ -58,14 +58,14 @@ export class PublicacionComponent {
     }
   }
 
-  onEdit(post: { user?: UserInterface, post: PostInterface }) {
+  onEdit(post: PostInterface) {
     let email: string | null = null;
 
     if (this.token) {
       email = this.authService.decodeToken(this.token);
     }
 
-    if (post.user?.email === email) {
+    if (post.user.email === email) {
       this.canEdit = true;
       this.canSave = true;
       this.mostrarEditar = false;
@@ -75,12 +75,12 @@ export class PublicacionComponent {
   }
 
   onSave() {
-    let email = this.posts.user?.email;
+    let email = this.posts.user.email;
     let token = this.token;
-    let postUpdated = { title: this.posts.post.title, content: this.posts.post.content, updatedAt: new Date() };
+    let postUpdated = { title: this.posts.title, content: this.posts.content, updatedAt: new Date() };
 
 
-    this.postService.getPosts(this.posts.post.id ?? 0).subscribe({
+    this.postService.getPosts(this.posts.id ?? 0).subscribe({
       next: (response: PostInterface) => {
         this.postService.updatePost(email ?? '', response.title, postUpdated, token)
           .subscribe({

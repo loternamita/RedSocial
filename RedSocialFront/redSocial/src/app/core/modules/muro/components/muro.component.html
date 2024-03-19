@@ -3,7 +3,7 @@
   <app-menu-search></app-menu-search>
   <app-create-post (postCreated)="handlePostCreated($event)"></app-create-post>
   <div *ngFor="let publicacion of publicacionesAgrupadas">
-    <div *ngIf="publicacion.post.deletedAt === null">
+    <div *ngIf="publicacion.deletedAt === null">
       <app-publicacion
         [posts]="publicacion"
         (deleted)="onDeletePost($event)"
@@ -13,9 +13,8 @@
   <div class="pagination-controls">
     <button (click)="prevPage()" [disabled]="currentPage <= 1">Anterior</button>
     <span class="span-page">Página {{ currentPage }} de {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Siguiente</button>
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages">
+      Siguiente
+    </button>
   </div>
 </div>
-
-
-

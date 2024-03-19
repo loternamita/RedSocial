@@ -5,8 +5,8 @@ export interface PostInterface {
   title: string;
   content: string;
   likes?: number;
-  users?: UserInterface;
-  createdAt: Date;
+  user: UserInterface;
+  createdAt?: Date;
   updatedAt?: Date | null;
   deletedAt?: Date | null;
 }

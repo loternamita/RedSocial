@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { UserInterface } from '../../user/interface/user.interface';
 import { PostInterface } from "src/app/core/modules/post/interfaces/post.interface";
 import { SharedPostsService } from "../../post/services/shared-posts.service";
 import { Subscription } from "rxjs";
@@ -10,20 +9,21 @@ import { Subscription } from "rxjs";
   styleUrls: ['./muro.component.scss']
 })
 export class MuroComponent implements OnInit, OnDestroy {
-  public publicacionesAgrupadas: { user: UserInterface, post: PostInterface }[] = [];
+  public publicacionesAgrupadas: PostInterface[] = [];
   private subscriptions = new Subscription();
   public currentPage = 1;
   public totalPosts = 0;
   public totalPages = 0;
 
-  constructor(private sharedPostsService: SharedPostsService, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private sharedPostsService: SharedPostsService) { }
 
   ngOnInit(): void {
     this.loadPosts();
 
     this.subscriptions.add(this.sharedPostsService.posts$.subscribe(postsWithUsers => {
-      this.publicacionesAgrupadas = postsWithUsers;
-      this.changeDetectorRef.detectChanges();
+      const res = postsWithUsers.filter(post => post.user)
+      this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(item => item.user);
+      this.publicacionesAgrupadas = res;
     }));
 
     // Suscríbete al total de posts para manejar la paginación
@@ -32,7 +32,6 @@ export class MuroComponent implements OnInit, OnDestroy {
       this.calculateTotalPages();
     }));
 
-
   }
 
   ngOnDestroy(): void {
@@ -40,15 +39,12 @@ export class MuroComponent implements OnInit, OnDestroy {
   }
 
   onDeletePost(postId: number): void {
-    this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(item => item.post.id !== postId);
+    this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(item => item.id !== postId);
+    this.sharedPostsService.updatePosts(this.publicacionesAgrupadas);
   }
 
   handlePostCreated(newPost: PostInterface): void {
-    if (newPost.users) {
-      const updatedList = [{ user: newPost.users, post: newPost }, ...this.publicacionesAgrupadas];
-      this.publicacionesAgrupadas = updatedList;
-      this.sharedPostsService.updatePosts(updatedList);
-    }
+    this.sharedPostsService.addPost(newPost);
   }
 
   calculateTotalPages(): void {

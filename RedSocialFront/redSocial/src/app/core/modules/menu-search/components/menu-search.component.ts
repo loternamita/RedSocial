@@ -29,13 +29,7 @@ export class MenuSearchComponent {
       if (this.query.trim() !== '') {
         this.menuSearchService.searchPosts(this.email, this.token, this.query).subscribe({
           next: res => {
-
-            const postsWithUsers = res.map(post => ({
-              user: post.users!,
-              post: post
-            }));
-
-            this.sharedPostsService.updatePosts(postsWithUsers);
+            this.sharedPostsService.updatePosts(res);
           },
           error: err => {
             console.error('Error: ' + err);
