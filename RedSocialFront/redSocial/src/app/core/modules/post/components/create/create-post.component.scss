@@ -1,0 +1,81 @@
+.dark-background-muro {
+  min-height: 100vh; /* Ajusta la altura mínima para cubrir toda la pantalla */
+  background-color: #1f2937; /* Gris oscuro */
+}
+
+.publicacion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0; /* Elimina cualquier relleno interno */
+  overflow: hidden; /* Evita que las tarjetas se salgan del contenedor */
+}
+
+.publicacion-card {
+  background-color: #ffffff;
+  margin: 83px ;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ajusta el ancho al contenedor */
+  margin-bottom: 10px;
+}
+
+.btn-title{
+  font-size: 18px;
+  padding-left: 10px;
+  margin-left: 10px;
+  left: 9px;
+}
+
+.txt-content {
+  background-color: rgb(255, 255, 255, 0.70);
+  font-size: 16px;
+  margin-bottom: -18px;
+  width: 95%;
+  height: 160px;
+  resize: none;
+}
+
+.btn-save{
+  margin-top: 5px;
+}
+
+.label-content{
+  top: 12px;
+  float: left;
+  left: 0px;
+  margin-top: 5px;
+}
+
+.label-title{
+  margin-top: 14px;
+  top: 20px;
+  float: left;
+}
+
+.txt-content{
+  margin-bottom: 19px;
+  margin-top: 5px;
+}
+
+.error-message {
+  color: red;
+
+}
+
+.error-message-content{
+  margin-top: -19px;
+}
+
+.error-message-title{
+  margin-top: 10px;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+<div class="publicacion-container">
+  <div class="publicacion-card">
+    <div class="dropdown" (click)="handleClickOutside($event)">
+      <button class="edit-button" (click)="toggleEditar()">
+        <img
+          src="../../../assets/TresPuntos1.png"
+          alt="Opciones"
+          class="delete-icon-edit h-8 w-8"
+        />
+      </button>
+      <div class="ventana-emergente" *ngIf="mostrarEditar">
+        <div class="dropdown-content">
+          <div class="tooltip">
+            <button (click)="onEdit(posts)" class="tooltiptext">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="publicacion-info">
+      <p class="usuario-nombre">{{ posts.user?.fullname }}</p>
+      <input
+        type="text"
+        class="mt-1 px-2 py-1 rounded-md btn-title"
+        value="{{ posts.post.title }}"
+        id="title"
+        [(ngModel)]="posts.post.title"
+        [readonly]="!canEdit"
+        readonly
+      />
+      <textarea
+        class="mt-1 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-gray-500 txt-content"
+        id="content"
+        [(ngModel)]="posts.post.content"
+        [readonly]="!canEdit"
+        >{{ posts.post.content }}</textarea
+      >
+      <div>
+        <input
+          *ngIf="canSave"
+          type="button"
+          class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600 btn-save"
+          value="Save"
+          (click)="onSave()"
+        />
+        <p *ngIf="responseMessage" class="text-red-500 mt-3">
+          {{ responseMessage }}
+        </p>
+      </div>
+      <p class="fecha">{{ posts.post.createdAt | date : "dd/MM/yyyy" }}</p>
+    </div>
+    <button class="delete-button" (click)="onDelete()">
+      <div class="opciones">
+        <img
+          src="../../../assets/basura (1).png"
+          alt="Eliminar"
+          class="delete-icon h-6 w-6"
+        />
+      </div>
+    </button>
+  </div>
+</div>

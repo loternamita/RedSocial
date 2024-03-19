@@ -1,0 +1,17 @@
+<div>
+  <app-menu></app-menu>
+</div>
+<div class="menu-search">
+  <button class="edit-button">
+    <img src="../../../assets/lupa.png" alt="Opciones" class="h-6 w-6" />
+  </button>
+
+  <input
+    type="text"
+    class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 input-search"
+    id="text"
+    name="text"
+    [(ngModel)]="query"
+    (input)="onSearch()"
+  />
+</div>

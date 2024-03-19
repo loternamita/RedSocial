@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { PostEntity } from '../entities/post.entity';
 import { PostInterface } from '../interfaces/posts.interface';
 import { UserEntity } from '../../../user/adapters/entities/user.entity';
+import { PostsResponse } from '../interfaces/postResponse.interface';
 
 // Clase servicio que realiza procesos y envia peticiones hacia la BD
 @Injectable()
@@ -145,24 +146,44 @@ export class PostService {
     }
   }
 
-  async getPosts(
-    page: number,
-    pageSize: number,
-    email: string,
-  ): Promise<PostInterface[]> {
+  async getPosts(page: number, pageSize: number): Promise<PostsResponse> {
     try {
       const startIndex = (page - 1) * pageSize;
-      const posts = await this.postRepository.find({
-        where: { user: { email } },
-        take: pageSize,
-        skip: startIndex,
-        order: { createdAt: 'DESC' },
-      });
 
-      return posts;
+      const [posts, total] = await this.userRepository
+        .createQueryBuilder('user')
+        .innerJoinAndSelect('user.posts', 'post')
+        .addOrderBy('post.createdAt', 'DESC')
+        .take(pageSize)
+        .skip(startIndex)
+        .getManyAndCount();
+
+      return { posts, total };
     } catch (error) {
       throw new HttpException(
         'Error al procesar la solicitud: ' + error,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async getPaginatedPosts(
+    page: number,
+    pageSize: number,
+  ): Promise<{ posts: PostInterface[]; total: number }> {
+    try {
+      const [posts, total] = await this.postRepository
+        .createQueryBuilder('post')
+        .leftJoinAndSelect('post.user', 'user')
+        .orderBy('post.createdAt', 'DESC')
+        .take(pageSize)
+        .skip((page - 1) * pageSize)
+        .getManyAndCount();
+
+      return { posts, total };
+    } catch (error) {
+      throw new HttpException(
+        'Error al procesar la solicitud: ' + error.message,
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
@@ -178,6 +199,18 @@ export class PostService {
           { query: `%${query}%`, email },
         )
         .getMany();
+      return posts;
+    } catch (error) {
+      throw new HttpException(
+        'Error al procesar la solicitud: ' + error,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async getPostById(id: number): Promise<PostInterface> {
+    try {
+      const posts = await this.postRepository.findOne({ where: { id } });
       return posts;
     } catch (error) {
       throw new HttpException(

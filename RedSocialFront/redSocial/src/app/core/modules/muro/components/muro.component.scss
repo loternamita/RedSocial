@@ -1,0 +1,28 @@
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  background-color: #007bff;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+}
+
+.pagination-controls span {
+  padding: 10px 20px;
+}
+
+.span-page{
+  color: white;
+}

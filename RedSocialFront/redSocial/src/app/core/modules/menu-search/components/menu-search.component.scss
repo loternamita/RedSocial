@@ -1,0 +1,36 @@
+.menu-search {
+  position: fixed;
+  top: 0px;
+  left: 220px;
+  background-color: #ffffff; /* Fondo transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 1300px;
+  height: 4.5vh;
+  /* Sombreado completo al menu */
+  list-style: none;
+  overflow: hidden; /* Para ocultar el sombreado que se extienda más allá del menú */
+  transition: box-shadow 0.3s ease; /* Agregar transición suave al sombreado */
+  z-index: 2000;
+}
+
+.menu-search:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agregar sombreado al hacer hover */
+}
+
+.edit-button{
+  position: fixed;
+  bottom: 96.6%;
+  right: 86.6%;
+}
+
+.input-search{
+  position: fixed;
+  top: -4px;
+  left: 264px;
+  padding: 8px 0px;
+  width: calc(5% - -1173px);
+}
+
+
+

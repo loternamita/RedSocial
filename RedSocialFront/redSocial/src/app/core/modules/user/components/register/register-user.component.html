@@ -1,0 +1,134 @@
+<!-- register.component.html -->
+<div class="bg-white p-8 rounded shadow-md w-96">
+  <div class="mt-4 text-center">
+    <h2 class="text-xl font-semibold mb-4">Registrarse</h2>
+  </div>
+  <form class="space-y-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col">
+      <label for="fullname" class="text-sm">Nombre completo:</label>
+      <input
+        type="text"
+        class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+        id="fullname"
+        required
+        formControlName="fullname"
+        name="fullname"
+        placeholder="Nombre completo"
+      />
+      <div class="text-danger error-message">
+        <div
+          *ngIf="
+            registerForm.get('fullname')?.invalid &&
+            (registerForm.get('fullname')?.dirty ||
+              registerForm.get('fullname')?.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="registerForm.get('fullname')?.errors?.['required']">
+            Fullname is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label for="email" class="text-sm">Email:</label>
+      <input
+        type="email"
+        class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+        id="email"
+        required
+        formControlName="email"
+        placeholder="email"
+        name="email"
+      />
+      <div class="text-danger error-message">
+        <div
+          *ngIf="
+            registerForm.get('email')?.invalid &&
+            (registerForm.get('email')?.dirty ||
+              registerForm.get('email')?.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">
+            Email is required
+          </div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">
+            Invalid email format
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label for="age" class="text-sm">Edad:</label>
+      <input
+        type="number"
+        class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+        id="age"
+        required
+        formControlName="age"
+        placeholder="edad"
+        name="age"
+      />
+      <div class="text-danger error-message">
+        <div
+          *ngIf="
+            registerForm.get('age')?.invalid &&
+            (registerForm.get('age')?.dirty || registerForm.get('age')?.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="registerForm.get('age')?.errors?.['required']">
+            Age is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <label for="password" class="text-sm">Contraseña:</label>
+      <input
+        type="password"
+        class="mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+        id="password"
+        required
+        formControlName="password"
+        placeholder="contraseña"
+        name="password"
+      />
+      <div class="text-danger error-message">
+        <div
+          *ngIf="
+            registerForm.get('password')?.invalid &&
+            (registerForm.get('password')?.dirty ||
+              registerForm.get('password')?.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">
+            Password is required
+          </div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            Password must be at least 8 characters long
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+      >
+        Registrarse
+      </button>
+    </div>
+    <div *ngIf="errorMessage" class="text-red-500 mt-3">
+      {{ errorMessage }}
+    </div>
+    <div class="login-link mt-4 text-center">
+      <p class="text-sm">
+        Already have an account?
+        <a routerLink="/login" class="text-blue-500 hover:underline">Login</a>
+      </p>
+    </div>
+  </form>
+</div>

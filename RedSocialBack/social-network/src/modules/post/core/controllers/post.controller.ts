@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { PostInterface } from '../../../post/adapters/interfaces/posts.interface';
 import { PostService } from '../../../post/adapters/services/post.service';
+import { PostsResponse } from '../../adapters/interfaces/postResponse.interface';
 
 @Controller('posts')
 export class PostController {
@@ -57,13 +58,21 @@ export class PostController {
     return dto;
   }
 
-  @Get('getPosts/:email')
+  @Get('getPosts')
   getPosts(
     @Query('page') page: number = 1,
     @Query('pageSize') pageSize: number = 10,
-    @Param('email') email: string,
-  ): Promise<PostInterface[]> {
-    const posts = this.postService.getPosts(page, pageSize, email);
+  ): Promise<PostsResponse> {
+    const posts = this.postService.getPosts(page, pageSize);
+    return posts;
+  }
+
+  @Get('getPaginatePosts')
+  getPostsByUser(
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+  ): Promise<{ posts: PostInterface[]; total: number }> {
+    const posts = this.postService.getPaginatedPosts(page, pageSize);
     return posts;
   }
 
@@ -73,5 +82,10 @@ export class PostController {
     @Param('email') email: string,
   ): Promise<PostInterface[]> {
     return this.postService.searchPosts(query, email);
+  }
+
+  @Get('getPostById/:id')
+  getPostById(@Param('id') id: number): Promise<PostInterface> {
+    return this.postService.getPostById(id);
   }
 }

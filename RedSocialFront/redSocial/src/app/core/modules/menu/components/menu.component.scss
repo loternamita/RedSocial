@@ -1,0 +1,131 @@
+.menu-lateral {
+  position: fixed;
+  top: 0px;
+  left: 1px;
+  background-color: #ffffff; /* Fondo transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 175px;
+  height: 100vh;
+  /* Sombreado completo al menu */
+  list-style: none;
+  overflow: hidden; /* Para ocultar el sombreado que se extienda más allá del menú */
+  transition: box-shadow 0.3s ease; /* Agregar transición suave al sombreado */
+}
+
+.menu-lateral:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agregar sombreado al hacer hover */
+}
+
+.menu-lateral li {
+  margin-bottom: 20px;
+}
+
+.menu-button {
+  position: relative;
+  top: 0px;
+  display: block;
+  width: 100%; /* Ajustar el ancho al 100% del contenedor */
+  padding: 15px 15px;
+  border: none;
+  background-color: transparent;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Agregar transición suave al color de fondo */
+}
+
+.menu-button:hover {
+  background-color: #f0f0f0; /* Cambiar el color de fondo al hacer hover */
+  outline: none; /* Eliminar el contorno al hacer hover */
+}
+
+.close-icon-session{
+  position: relative;
+  top: 722px;
+  right: -64px;
+}
+
+.btn-close-session {
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  .close-icon-session {
+    display: inline-block;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      transition: opacity 0.3s;
+      border-radius: 50%;
+    }
+
+    &::before {
+      opacity: 0;
+    }
+
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 0;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
+  &:hover .close-icon-session::before {
+    opacity: 1;
+  }
+
+  &:hover .close-icon-session::after {
+    opacity: 1;
+  }
+
+  &:hover .close-icon-session {
+    animation: pulse 0.5s ease;
+  }
+}
+
+.btn-inicio{
+  top: 1px;
+  position: relative;
+  left: -6px;
+  // padding: 0px 35px
+}
+
+.btn-data{
+  top: -20px;
+  position: relative;
+  left: 0px;
+
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+

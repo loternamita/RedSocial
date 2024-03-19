@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   Put,
@@ -41,6 +42,13 @@ export class UserController {
     @Body() user: UserInterface,
   ): Promise<UserInterface> {
     const dto = this.userService.updateUser(email, user);
+    return dto;
+  }
+
+  @Get('getByEmail/:email')
+  @UseGuards(AuthMiddleware)
+  getByEmail(@Param('email') email: string): Promise<UserInterface> {
+    const dto = this.userService.findByEmail(email);
     return dto;
   }
 }

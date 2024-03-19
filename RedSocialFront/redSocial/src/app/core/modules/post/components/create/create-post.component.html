@@ -1,0 +1,62 @@
+<div class="publicacion-container">
+  <div class="publicacion-card">
+    <div class="publicacion-info">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label for="title" class="text-sm label-title">Título:</label>
+        <input
+          type="text"
+          class="mt-1 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-gray-500 btn-title"
+          id="title"
+          name="title"
+          formControlName="title"
+          [(ngModel)]="nuevaPublicacion.title"
+          required
+        />
+        <div class="text-danger error-message error-message-title">
+          <div
+            *ngIf="
+              registerForm.get('title')?.invalid &&
+              (registerForm.get('title')?.dirty ||
+                registerForm.get('title')?.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="registerForm.get('title')?.errors?.['required']">
+              El titulo es requerido
+            </div>
+          </div>
+        </div>
+        <label for="content" class="text-sm label-content">Contenido:</label>
+        <textarea
+          class="mt-1 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-gray-500 txt-content"
+          id="content"
+          name="content"
+          formControlName="content"
+          [(ngModel)]="nuevaPublicacion.content"
+          required
+        ></textarea>
+        <div class="text-danger error-message error-message-content">
+          <div
+            *ngIf="
+              registerForm.get('content')?.invalid &&
+              (registerForm.get('content')?.dirty ||
+                registerForm.get('content')?.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="registerForm.get('content')?.errors?.['required']">
+              El contenido es requerido
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600 btn-save"
+        >
+          Crear Publicación
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

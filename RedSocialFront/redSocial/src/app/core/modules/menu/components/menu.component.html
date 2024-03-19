@@ -1,0 +1,22 @@
+<router-outlet></router-outlet>
+<div class="menu-lateral">
+  <ul>
+    <li class="">
+      <button class="btn-inicio menu-button" (click)="inicio()">Inicio</button>
+    </li>
+    <li class="">
+      <button class="btn-data menu-button" (click)="updateData()">
+        Actualizar Datos
+      </button>
+    </li>
+    <li>
+      <button class="btn-close-session" (click)="cerrarSesion()">
+        <img
+          src="../../../assets/cerrar-sesion.png"
+          alt="Opciones"
+          class="close-icon-session h-8 w-8"
+        />
+      </button>
+    </li>
+  </ul>
+</div>

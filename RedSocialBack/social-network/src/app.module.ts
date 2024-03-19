@@ -41,6 +41,7 @@ export class AppModule implements NestModule {
       { path: '/posts/updatePost/:email/:titulo', method: RequestMethod.PUT },
       { path: '/users/updateUser/:email', method: RequestMethod.PUT },
       { path: '/users/deleteuser/:email', method: RequestMethod.DELETE },
+      { path: '/users/getByEmail/:email', method: RequestMethod.GET },
       {
         path: '/posts/deletePost/:email/:titulo',
         method: RequestMethod.DELETE,
@@ -48,7 +49,6 @@ export class AppModule implements NestModule {
       { path: '/posts/savePost/:email', method: RequestMethod.POST },
       { path: '/posts/likePost/:email/:titulo', method: RequestMethod.PUT },
       { path: '/posts/disLikePost/:email/:titulo', method: RequestMethod.PUT },
-      { path: '/posts/getPosts/:email', method: RequestMethod.GET },
       { path: '/posts/searchPosts/:email', method: RequestMethod.GET },
     );
   }
