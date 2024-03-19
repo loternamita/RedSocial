@@ -20,8 +20,7 @@ export class CreatePostComponent {
       age: 0,
       password: '',
       fullname: '',
-      email: '',
-      createdAt: new Date()
+      email: ''
     }
   };
   private token: string = "";

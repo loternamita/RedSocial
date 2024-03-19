@@ -7,7 +7,7 @@ export interface UserInterface {
   email: string;
   password: string;
   posts?: PostInterface[];
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
 }

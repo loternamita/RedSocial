@@ -6,7 +6,7 @@ export interface PostInterface {
   content: string;
   likes?: number;
   user: UserInterface;
-  createdAt?: Date;
+  createdAt?: Date | null;
   updatedAt?: Date | null;
   deletedAt?: Date | null;
 }
