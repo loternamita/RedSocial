@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './core/modules/login/components/login.component';
 import { UpdateUserComponent } from './core/modules/user/components/update/update-user.component';
 import { RegisterUserComponent } from './core/modules/user/components/register/register-user.component';
 import { CreatePostComponent } from './core/modules/post/components/create/create-post.component';
@@ -15,6 +14,7 @@ import { PublicacionComponent } from './core/modules/tarjetaPublicacion/componen
 import { AuthService } from './core/modules/auth/services/auth.service';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { MenuSearchComponent } from './core/modules/menu-search/components/menu-search.component';
+import { LoginComponent } from './core/modules/login/components/login.component';
 
 @NgModule({
   declarations: [

@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
-import { type HttpClient } from '@angular/common/http';
-import { type Observable, map } from 'rxjs';
-import { UserInterface } from 'src/app/core/modules/user/interface/user.interface';
-import { type PostInterface } from '../../post/interfaces/post.interface';
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { PostInterface } from '../../post/interfaces/post.interface'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class MuroService {
-  private readonly url: string = 'http://localhost:3000/api';
+  private readonly url: string = 'http://localhost:3000/api'
 
-  constructor(private readonly http: HttpClient) {}
+  constructor (private readonly http: HttpClient) {}
 
-  getPosts(
+  getPosts (
     page: number,
     pageSize: number
-  ): Observable<{ posts: PostInterface[]; total: number }> {
-    const uri = this.url + '/posts/getPaginatePosts';
+  ): Observable<{ posts: PostInterface[], total: number }> {
+    const uri = this.url + '/posts/getPaginatePosts'
 
-    return this.http.get<{ posts: PostInterface[]; total: number }>(uri, {
-      params: { page, pageSize },
-    });
+    return this.http.get<{ posts: PostInterface[], total: number }>(uri, {
+      params: { page, pageSize }
+    })
   }
 }

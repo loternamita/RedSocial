@@ -1,56 +1,57 @@
-import { Injectable } from '@angular/core';
-import { type HttpClient } from '@angular/common/http';
-import { type Observable } from 'rxjs';
-import { type PostInterface } from '../interfaces/post.interface';
-import { type TargetInterface } from '../../tarjetaPublicacion/interface/target.interface';
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { PostInterface } from '../interfaces/post.interface'
+import { TargetInterface } from '../../tarjetaPublicacion/interface/target.interface'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PostService {
-  private readonly baseUrl = 'http://localhost:3000/api';
+  private readonly baseUrl = 'http://localhost:3000/api'
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor (private readonly httpClient: HttpClient) {}
 
-  updatePost(
+  updatePost (
     emailUpdated: string,
     titleUpdated: string,
     body: TargetInterface,
     token: string
   ): Observable<PostInterface> {
-    const uri = this.baseUrl + '/posts/updatePost/';
-    const params = { email: emailUpdated, title: titleUpdated };
-    const uriCompleted = uri + params.email + '/' + params.title;
+    const uri = this.baseUrl + '/posts/updatePost/'
+    const params = { email: emailUpdated, title: titleUpdated }
+    const uriCompleted = uri + params.email + '/' + params.title
 
     return this.httpClient.put<PostInterface>(uriCompleted, body, {
-      headers: { authorization: token },
-    });
+      headers: { authorization: token }
+    })
   }
 
-  deletePost(emailUpdated: string, titleUpdated: string, token: string) {
-    const uri = this.baseUrl + '/posts/deletePost/';
-    const params = { email: emailUpdated, title: titleUpdated };
+  deletePost (emailUpdated: string, titleUpdated: string, token: string): Observable<PostInterface> {
+    const uri = this.baseUrl + '/posts/deletePost/'
+    const params = { email: emailUpdated, title: titleUpdated }
 
-    const uriCompleted = uri + params.email + '/' + params.title;
+    const uriCompleted = uri + params.email + '/' + params.title
 
     return this.httpClient.delete<PostInterface>(uriCompleted, {
-      headers: { authorization: token },
-    });
+      headers: { authorization: token }
+    })
   }
 
-  getPosts(id: number): Observable<PostInterface> {
-    const uri = this.baseUrl + '/posts/getPostById/' + id;
-    return this.httpClient.get<PostInterface>(uri);
+  getPosts (id: number): Observable<PostInterface> {
+    const uri = this.baseUrl + '/posts/getPostById/' + id
+    return this.httpClient.get<PostInterface>(uri)
   }
 
-  createPost(
+  createPost (
     email: string | null,
     body: PostInterface,
     token: string
   ): Observable<PostInterface> {
-    const uri = this.baseUrl + '/posts/savePost/' + email;
+    const uri = this.baseUrl + '/posts/savePost/' + email
     return this.httpClient.post<PostInterface>(uri, body, {
-      headers: { authorization: token },
-    });
+      headers: { authorization: token }
+    })
   }
 }
