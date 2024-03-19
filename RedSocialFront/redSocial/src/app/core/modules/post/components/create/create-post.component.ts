@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,25 +14,30 @@ import { UserInterface } from '../../../user/interface/user.interface';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent {
-
   @Output() postCreated = new EventEmitter<PostInterface>();
   public nuevaPublicacion: PostInterface = {
-    title: '', content: '', createdAt: new Date(),
+    title: '',
+    content: '',
+    createdAt: new Date(),
     user: {
       age: 0,
       password: '',
       fullname: '',
-      email: ''
-    }
+      email: '',
+    },
   };
-  private token: string = "";
-  private email: string | null = "";
+  private token: string = '';
+  private email: string | null = '';
   public registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private postService: PostService, private authService: AuthService, private sharedPostsService: SharedPostsService,
+  constructor(
+    private formBuilder: FormBuilder,
+    private postService: PostService,
+    private authService: AuthService,
+    private sharedPostsService: SharedPostsService
   ) {
     this.registerForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -52,20 +62,22 @@ export class CreatePostComponent {
       password: '',
       fullname: '',
       email: '',
-      createdAt: new Date()
-    }
+      createdAt: new Date(),
+    };
     if (this.email && this.registerForm.valid) {
-      this.postService.createPost(this.email, this.nuevaPublicacion, this.token).subscribe({
-        next: response => {
-          this.postCreated.emit(response);
-          this.registerForm.reset();
-          this.nuevaPublicacion = { title: '', content: '', user: user };
-          this.sharedPostsService.loadPosts();
-        },
-        error: err => {
-          console.error('Error al crear la publicación:', err);
-        }
-      });
+      this.postService
+        .createPost(this.email, this.nuevaPublicacion, this.token)
+        .subscribe({
+          next: response => {
+            this.postCreated.emit(response);
+            this.registerForm.reset();
+            this.nuevaPublicacion = { title: '', content: '', user: user };
+            this.sharedPostsService.loadPosts();
+          },
+          error: err => {
+            console.error('Error al crear la publicación:', err);
+          },
+        });
     }
   }
 }

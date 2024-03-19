@@ -26,19 +26,20 @@ import { MenuSearchComponent } from './core/modules/menu-search/components/menu-
     MenuComponent,
     MuroComponent,
     PublicacionComponent,
-    MenuSearchComponent
+    MenuSearchComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     AuthService,
     JwtHelperService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }],
-  bootstrap: [AppComponent]
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

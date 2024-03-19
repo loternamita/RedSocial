@@ -28,22 +28,22 @@
   margin-bottom: 10px;
 }
 
-.btn-title{
+.btn-title {
   font-size: 18px;
-  background-color: rgb(255, 255, 255, 0.70);
+  background-color: rgb(255, 255, 255, 0.7);
   font-size: 18px;
   border-bottom: 2px solid #cbd5e0;
   padding-bottom: 2px; /* Espacio debajo del título */
-  margin-bottom: 10px;;
+  margin-bottom: 10px;
 }
 
-.btn-save{
+.btn-save {
   top: 25px;
   position: relative;
 }
 
 .txt-content {
-  background-color: rgb(255, 255, 255, 0.70);
+  background-color: rgb(255, 255, 255, 0.7);
   font-size: 16px;
   margin-bottom: -18px;
   width: 95%;
@@ -65,12 +65,12 @@
   margin-top: 10px;
 }
 
-.dropdown{
+.dropdown {
   position: relative;
   float: right;
 }
 
-.edit-button{
+.edit-button {
   float: right;
   background: none;
   border: none;
@@ -124,7 +124,6 @@
   &:hover .delete-icon-edit {
     animation: pulse 0.5s ease;
   }
-
 }
 
 .delete-button {
@@ -237,4 +236,3 @@
   z-index: 1000; /* Asegura que la ventana emergente esté por encima de otros elementos */
   /* Agrega aquí otros estilos según sea necesario */
 }
-

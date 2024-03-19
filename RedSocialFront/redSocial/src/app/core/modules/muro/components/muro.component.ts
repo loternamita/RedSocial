@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { PostInterface } from "src/app/core/modules/post/interfaces/post.interface";
-import { SharedPostsService } from "../../post/services/shared-posts.service";
-import { Subscription } from "rxjs";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { PostInterface } from 'src/app/core/modules/post/interfaces/post.interface';
+import { SharedPostsService } from '../../post/services/shared-posts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-muro',
   templateUrl: './muro.component.html',
-  styleUrls: ['./muro.component.scss']
+  styleUrls: ['./muro.component.scss'],
 })
 export class MuroComponent implements OnInit, OnDestroy {
   public publicacionesAgrupadas: PostInterface[] = [];
@@ -15,23 +15,28 @@ export class MuroComponent implements OnInit, OnDestroy {
   public totalPosts = 0;
   public totalPages = 0;
 
-  constructor(private sharedPostsService: SharedPostsService) { }
+  constructor(private sharedPostsService: SharedPostsService) {}
 
   ngOnInit(): void {
     this.loadPosts();
 
-    this.subscriptions.add(this.sharedPostsService.posts$.subscribe(postsWithUsers => {
-      const res = postsWithUsers.filter(post => post.user)
-      this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(item => item.user);
-      this.publicacionesAgrupadas = res;
-    }));
+    this.subscriptions.add(
+      this.sharedPostsService.posts$.subscribe(postsWithUsers => {
+        const res = postsWithUsers.filter(post => post.user);
+        this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(
+          item => item.user
+        );
+        this.publicacionesAgrupadas = res;
+      })
+    );
 
     // Suscríbete al total de posts para manejar la paginación
-    this.subscriptions.add(this.sharedPostsService.totalPosts$.subscribe(total => {
-      this.totalPosts = total;
-      this.calculateTotalPages();
-    }));
-
+    this.subscriptions.add(
+      this.sharedPostsService.totalPosts$.subscribe(total => {
+        this.totalPosts = total;
+        this.calculateTotalPages();
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -39,7 +44,9 @@ export class MuroComponent implements OnInit, OnDestroy {
   }
 
   onDeletePost(postId: number): void {
-    this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(item => item.id !== postId);
+    this.publicacionesAgrupadas = this.publicacionesAgrupadas.filter(
+      item => item.id !== postId
+    );
     this.sharedPostsService.updatePosts(this.publicacionesAgrupadas);
   }
 
@@ -48,7 +55,9 @@ export class MuroComponent implements OnInit, OnDestroy {
   }
 
   calculateTotalPages(): void {
-    this.totalPages = Math.ceil(this.totalPosts / this.sharedPostsService.getPageSize());
+    this.totalPages = Math.ceil(
+      this.totalPosts / this.sharedPostsService.getPageSize()
+    );
   }
 
   nextPage(): void {
@@ -66,7 +75,9 @@ export class MuroComponent implements OnInit, OnDestroy {
   }
 
   loadPosts(): void {
-    this.sharedPostsService.loadPosts(this.currentPage, this.sharedPostsService.getPageSize());
+    this.sharedPostsService.loadPosts(
+      this.currentPage,
+      this.sharedPostsService.getPageSize()
+    );
   }
 }
-

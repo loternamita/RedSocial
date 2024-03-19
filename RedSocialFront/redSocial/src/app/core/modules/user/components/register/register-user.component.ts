@@ -7,18 +7,22 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.scss']
+  styleUrls: ['./register-user.component.scss'],
 })
 export class RegisterUserComponent {
   public registerForm: FormGroup;
-  public errorMessage: string = "";
+  public errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.registerForm = this.formBuilder.group({
       fullname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       age: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -29,15 +33,12 @@ export class RegisterUserComponent {
         next: response => {
           console.log('Succesful: ' + JSON.stringify(response));
           this.router.navigate(['/login']);
-        }, error: error => {
+        },
+        error: error => {
           console.error('Error during registration:', error);
           this.errorMessage = error;
-
-        }
+        },
       });
     }
   }
-
 }
-
-

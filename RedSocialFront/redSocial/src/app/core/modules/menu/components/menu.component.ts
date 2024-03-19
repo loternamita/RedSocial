@@ -5,18 +5,24 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
-
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   inicio() {
-    this.router.navigate(['/menu/muroPublicaciones'], { skipLocationChange: true });
+    this.router.navigate(['/menu/muroPublicaciones'], {
+      skipLocationChange: true,
+    });
   }
 
   updateData() {
-    this.router.navigate(['/menu/app-update-data'], { skipLocationChange: true });
+    this.router.navigate(['/menu/app-update-data'], {
+      skipLocationChange: true,
+    });
   }
 
   cerrarSesion() {

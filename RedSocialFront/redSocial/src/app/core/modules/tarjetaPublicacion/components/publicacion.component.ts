@@ -1,5 +1,12 @@
 // publicacion.component.ts
-import { Component, EventEmitter, Input, Output, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { PostInterface } from 'src/app/core/modules/post/interfaces/post.interface';
 import { UserInterface } from 'src/app/core/modules/user/interface/user.interface';
 import { AuthService } from '../../auth/services/auth.service';
@@ -8,7 +15,7 @@ import { PostService } from '../../post/services/post.service';
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
-  styleUrls: ['./publicacion.component.scss']
+  styleUrls: ['./publicacion.component.scss'],
 })
 export class PublicacionComponent {
   @Input()
@@ -17,11 +24,15 @@ export class PublicacionComponent {
   public mostrarEditar: boolean = false;
   public canEdit: boolean = false;
   public canSave: boolean = false;
-  private token: string = "";
-  public responseMessage: string = "";
-  private email: string | null = "";
+  private token: string = '';
+  public responseMessage: string = '';
+  private email: string | null = '';
 
-  constructor(private authService: AuthService, private postService: PostService, private elementRef: ElementRef) { }
+  constructor(
+    private authService: AuthService,
+    private postService: PostService,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit() {
     const token = this.authService.getToken();
@@ -39,22 +50,21 @@ export class PublicacionComponent {
   }
 
   onDelete() {
-
     let title = this.posts.title;
     let email = this.email;
 
     if (email) {
-      this.postService.deletePost(email, title, this.token)
-        .subscribe({
-          next: response => {
-            this.deleted.emit(this.posts.id);
-          },
-          error: err => {
-            if (err.status === 401) {
-              this.responseMessage = 'No tiene permisos para realizar esta accion';
-            }
+      this.postService.deletePost(email, title, this.token).subscribe({
+        next: response => {
+          this.deleted.emit(this.posts.id);
+        },
+        error: err => {
+          if (err.status === 401) {
+            this.responseMessage =
+              'No tiene permisos para realizar esta accion';
           }
-        });
+        },
+      });
     }
   }
 
@@ -77,27 +87,31 @@ export class PublicacionComponent {
   onSave() {
     let email = this.posts.user.email;
     let token = this.token;
-    let postUpdated = { title: this.posts.title, content: this.posts.content, updatedAt: new Date() };
-
+    let postUpdated = {
+      title: this.posts.title,
+      content: this.posts.content,
+      updatedAt: new Date(),
+    };
 
     this.postService.getPosts(this.posts.id ?? 0).subscribe({
       next: (response: PostInterface) => {
-        this.postService.updatePost(email ?? '', response.title, postUpdated, token)
+        this.postService
+          .updatePost(email ?? '', response.title, postUpdated, token)
           .subscribe({
-            error: (err) => {
+            error: err => {
               console.error('Error: ' + err);
 
               if (err.status === 401) {
-                this.responseMessage = 'No tiene permisos para realizar esta accion';
+                this.responseMessage =
+                  'No tiene permisos para realizar esta accion';
               }
-            }
+            },
           });
       },
-      error: (err) => {
+      error: err => {
         console.log('Error: ' + JSON.stringify(err));
-      }
+      },
     });
-
 
     this.canSave = false;
     this.canEdit = false;
@@ -116,5 +130,3 @@ export class PublicacionComponent {
     this.handleClickOutside(event);
   }
 }
-
-

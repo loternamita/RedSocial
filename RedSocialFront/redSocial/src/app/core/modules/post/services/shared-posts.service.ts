@@ -5,7 +5,7 @@ import { PostInterface } from '../interfaces/post.interface';
 import { MuroService } from '../../muro/services/muro.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SharedPostsService {
   private postsSubject = new BehaviorSubject<PostInterface[]>([]);
@@ -17,7 +17,7 @@ export class SharedPostsService {
   private currentPage = 1;
   private pageSize = 5;
 
-  constructor(private muroService: MuroService) { }
+  constructor(private muroService: MuroService) {}
 
   updatePosts(posts: PostInterface[]): void {
     this.postsSubject.next(posts);
@@ -30,17 +30,22 @@ export class SharedPostsService {
   }
 
   deletePost(postId: number): void {
-    const filteredPosts = this.postsSubject.getValue().filter(post => post.id !== postId);
+    const filteredPosts = this.postsSubject
+      .getValue()
+      .filter(post => post.id !== postId);
     this.updatePosts(filteredPosts);
   }
 
-  loadPosts(page: number = this.currentPage, pageSize: number = this.pageSize): void {
+  loadPosts(
+    page: number = this.currentPage,
+    pageSize: number = this.pageSize
+  ): void {
     this.muroService.getPosts(page, pageSize).subscribe({
       next: ({ posts, total }) => {
         this.postsSubject.next(posts);
         this.totalPostsSubject.next(total);
       },
-      error: error => console.error('Error loading posts:', error)
+      error: error => console.error('Error loading posts:', error),
     });
   }
 

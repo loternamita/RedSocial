@@ -46,7 +46,7 @@
           {{ responseMessage }}
         </p>
       </div>
-      <p class="fecha">{{ posts.createdAt | date : "dd/MM/yyyy" }}</p>
+      <p class="fecha">{{ posts.createdAt | date: 'dd/MM/yyyy' }}</p>
     </div>
     <button class="delete-button" (click)="onDelete()">
       <div class="opciones">

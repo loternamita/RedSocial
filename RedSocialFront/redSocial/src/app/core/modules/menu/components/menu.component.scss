@@ -39,7 +39,7 @@
   outline: none; /* Eliminar el contorno al hacer hover */
 }
 
-.close-icon-session{
+.close-icon-session {
   position: relative;
   top: 722px;
   right: -64px;
@@ -102,18 +102,17 @@
   }
 }
 
-.btn-inicio{
+.btn-inicio {
   top: 1px;
   position: relative;
   left: -6px;
   // padding: 0px 35px
 }
 
-.btn-data{
+.btn-data {
   top: -20px;
   position: relative;
   left: 0px;
-
 }
 
 @keyframes pulse {
@@ -127,5 +126,3 @@
     transform: scale(1);
   }
 }
-
-

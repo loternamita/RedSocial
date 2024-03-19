@@ -1,12 +1,11 @@
-import { Injectable } from "@angular/core";
-import { JwtHelperService } from "@auth0/angular-jwt";
-
+import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor(private jwtHelperService: JwtHelperService) { }
+  constructor(private jwtHelperService: JwtHelperService) {}
 
   saveToken(token: string) {
     window.sessionStorage.setItem('token', token);
@@ -26,9 +25,8 @@ export class AuthService {
   }
 
   decodeToken(token: string): string | null {
-    const tokenDecode = this.jwtHelperService.decodeToken(token)
+    const tokenDecode = this.jwtHelperService.decodeToken(token);
     const email = tokenDecode.email;
     return email;
   }
-
 }

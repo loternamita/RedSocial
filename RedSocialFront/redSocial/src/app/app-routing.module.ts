@@ -19,13 +19,13 @@ const routes: Routes = [
       { path: 'muroPublicaciones', component: MuroComponent },
       { path: 'app-update-data', component: UpdateUserComponent },
       { path: 'app-menu-search', component: MenuSearchComponent },
-    ]
+    ],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

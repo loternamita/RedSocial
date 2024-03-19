@@ -1,4 +1,4 @@
-import { PostInterface } from "src/app/core/modules/post/interfaces/post.interface";
+import { PostInterface } from 'src/app/core/modules/post/interfaces/post.interface';
 
 export interface UserInterface {
   id?: number;
