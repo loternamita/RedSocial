@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, type Routes } from '@angular/router';
 import { LoginComponent } from './core/modules/login/components/login.component';
 import { RegisterUserComponent } from './core/modules/user/components/register/register-user.component';
-import { MuroComponent } from './core/modules/muro/components/muro.component';
 import { AuthGuard } from './core/modules/auth/guards/auth.guard';
 import { UpdateUserComponent } from './core/modules/user/components/update/update-user.component';
 import { MenuComponent } from './core/modules/menu/components/menu.component';
@@ -16,7 +15,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: MenuComponent,
     children: [
-      { path: 'muroPublicaciones', component: MuroComponent },
+      {
+        path: 'muroPublicaciones',
+        loadChildren: () => import('./core/modules/muro/muro.module').then(m => m.MuroModule)
+      },
       { path: 'app-update-data', component: UpdateUserComponent },
       { path: 'app-menu-search', component: MenuSearchComponent },
     ],
